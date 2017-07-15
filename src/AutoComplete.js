@@ -13,7 +13,11 @@ export default createComponent(AutoComplete, ({
   ...mapError({ ...props, input: { onBlur() {onBlur()}, ...inputRest } }),
   dataSourceConfig,
   dataSource,
-  searchText: dataSourceConfig && dataSource ? (dataSource.find((item) => item[dataSourceConfig.value] === value) || {})[dataSourceConfig.text] : value,
+  searchText: dataSourceConfig && dataSource ? (
+    dataSource.find((item) => item[dataSourceConfig.value] === value) ||
+    dataSource.find((item) => item[dataSourceConfig.text] === value) ||
+    { [dataSourceConfig.text]: value }
+  )[dataSourceConfig.text] : value,
   onNewRequest: value => {
     onChange(
       typeof value === 'object' && dataSourceConfig
