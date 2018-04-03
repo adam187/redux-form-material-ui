@@ -33,7 +33,7 @@ export default createComponent(AutoComplete, ({
     const option = Object.assign({}, value, {value: extractValue(value, dataSourceConfig)})
     onChange(
       typeof option === 'object' && dataSourceConfig
-        ? option[dataSourceConfig.value]
+        ? extractValue(option, dataSourceConfig)
         : option
     )
     if (onNewRequest) {
